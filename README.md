@@ -36,4 +36,5 @@ test on paragraph complexity:
 
     python req_segmenation(DRIP)-su-paragraphComplexity.py
 
+download model:
     
