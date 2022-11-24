@@ -28,7 +28,7 @@ test on doucment:
 
     python req_segmenation(DRIP).py
 
-    python req_segmenation(DRIP)-su-pub.py
+    python req_segmenation(DRIP)-su.py
 
 test on paragraph complexity:
         
