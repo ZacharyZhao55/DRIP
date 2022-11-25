@@ -23,6 +23,7 @@ train model(batch=256,epochs=30):
 model path: '/output/training_nli_multi-task_v3_(30)\_(batch_128)bert-base-uncased-(date)'
 
 drip:
+
 test on document:
 
     python req_segmenation(DRIP).py
@@ -36,6 +37,7 @@ test on paragraph complexity:
     python req_segmenation(DRIP)-su-paragraphComplexity.py
 
 drip-no-opt:
+
 test on document:
 
     python req_segmenation(DRIP-no-opt).py
