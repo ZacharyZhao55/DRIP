@@ -4,7 +4,6 @@ from allennlp.predictors.predictor import Predictor
 import re
 from stanfordcorenlp import StanfordCoreNLP
 
-
 def get_Link_verbs():
     LV_list = []
     Linn_verb_file = open('Link_Verbs',mode='r',encoding='utf-8')
@@ -133,7 +132,7 @@ if __name__ == '__main__':
     nlp = StanfordCoreNLP('model\CoreNLP', lang='en')
     state_verb = r'state verb.txt'
     stateVerbList = []
-    stateVerbFile =  open(state_verb,'r',encoding='utf-8').readlines()
+    stateVerbFile = open(state_verb, 'r', encoding='utf-8').readlines()
     for sv in stateVerbFile:
         stateVerbList.append(sv.strip())
 
@@ -141,12 +140,27 @@ if __name__ == '__main__':
                         mode='r', encoding='utf-8')
     fileNameDoc = fileNameFile.readlines()
 
-    randomSampleFile = open(r'Data\test\testdata\randomSample.txt','r').readlines()
+    randomSampleFile = open(r'Data\test\testdata\randomSample.txt', 'r').readlines()
     randomSample  = []
     for r in randomSampleFile:
         randomSample.append(r.strip())
 
     print(randomSample)
+
+    oneList = []
+    threeList = []
+    sevenList = []
+    evelList = []
+    fifthList = []
+    moreList = []
+    totalSen = 0
+    totalPara = 0
+    oneSenNum = 0
+    threeSenNum = 0
+    sevenSenNum = 0
+    evelSenNum = 0
+    fifthSenNum = 0
+    moreSenNum = 0
 
     fileNameList= []
     for fileName in fileNameDoc:
@@ -157,17 +171,64 @@ if __name__ == '__main__':
                 fileName.strip())
             print(docFilePath)
             docFile = open(docFilePath, mode='r', encoding='utf-8').readlines()
+            temSenList = []
+            for index in range(len(docFile)):
+                sen = docFile[index]
+                if '.' in sen[:5] and temSenList == []:
+                    totalPara = totalPara +1
+                    temSenList.append(sen)
+                elif '.' not in sen[:5] and temSenList != []:
+                    temSenList.append(sen)
+                elif '.' in sen[:5] and temSenList != []:
+                    senNum = index - docFile.index(temSenList[0])
+                    totalSen = totalSen+senNum
+                    if senNum == 1:
+                        oneSenNum = oneSenNum + 1
+                        oneList.extend(temSenList)
+                    elif senNum > 1 and senNum <=3:
+                        threeSenNum = threeSenNum + 1
+                        threeList.extend(temSenList)
+                    elif senNum >3 and senNum <=7:
+                        sevenSenNum = sevenSenNum + 1
+                        sevenList.extend(temSenList)
+                    elif senNum >7 and senNum <=11:
+                        evelSenNum = evelSenNum + 1
+                        evelList.extend(temSenList)
+                    elif senNum >11 and senNum <=15:
+                        fifthSenNum = fifthSenNum + 1
+                        fifthList.extend(temSenList)
+                    elif senNum >15:
+                        moreSenNum = moreSenNum + 1
+                        moreList.extend(temSenList)
+                    temSenList = []
+                    temSenList.append(sen)
+                    totalPara = totalPara+1
+    print(oneSenNum)
+    print(threeSenNum)
+    print(sevenSenNum)
+    print(evelSenNum)
+    print(fifthSenNum)
+    print(moreSenNum)
+    print(totalSen)
+    print(totalPara)
+
+    totalSen = 0
+    totalPara = 0
+    newData = [threeList,sevenList,evelList,fifthList,moreList]
+    for data in newData:
+        if data != []:
+            print(newData.index(data))
             num = 0
             SenResult = []
             Result = []
-            for index in range(len(docFile)):
-                sen = docFile[index]
-                if '.' in sen[:5] and SenResult != []:
-                    SenResult[-1]+=' <NP>'
+            for sen in data:
+                # print(sen)
                 if ('.' in sen[:5] and sen.count('.') > 2) or ('.' not in sen[:5] and sen.count('.') >= 2):
                     sen_list = sen.split('.')
+                    totalSen = totalSen + len(sen_list)
                     temList = []
                     if '.' in sen[:5]:
+                        totalPara += 1
                         for i in sen_list[1:-1]:
                             if len(i) > 5:
                                 SenResult.append(i)
@@ -200,12 +261,15 @@ if __name__ == '__main__':
                     Result.append([num])
                     SenResult.append(sen)
                     num += 1
+            # print(SenResult)
+            # print(Result)
 
             throList = [0.4]
 
             # for path in pathList:
             for thro in throList:
-                embedder = SentenceTransformer(r'output\training_nli_multi-task_v3_(30)_(batch_128)bert-base-uncased-2022-11-22_00-25-28')
+                embedder = SentenceTransformer(
+                    r'output\training_nli_multi-task_v3_(30)_(batch_128)bert-base-uncased-2022-11-22_00-25-28')
                 # PRfile = open(path[0],mode='r',encoding='utf-8')
                 # PRDoc = PRfile.readlines()
                 TotalPRlist = []
@@ -215,40 +279,42 @@ if __name__ == '__main__':
                 # print(PRList)
                 for res in Result:
                     TotalPRlist.append(res)
-                    if len(res) >1:
+                    if len(res) > 1:
                         PRList.append(res)
                 print('TotalPRlist:', TotalPRlist)
-                print('PRList:',PRList)
+                print('PRList:', PRList)
                 # embedder = SentenceTransformer('bert-base-nli-mean-tokens')
                 # 语料实例
-                num=234
+                num = 234
                 correct = 0
                 total = 0
                 resultList = []
                 totalCorr = 0
                 TotalCorrList = []
-                for sen_idx in range(len(SenResult)-1):
+                for sen_idx in range(len(SenResult) - 1):
                     if '<NP>' not in SenResult[sen_idx]:
                         # imcompletenessVaild(SenResult[sen_idx], predictor, nlp, stateVerbList)
-                        query_embeddings = embedder.encode(SenResult[sen_idx].replace('<NP>',''), convert_to_tensor=True)
-                        next_embeddings = embedder.encode(SenResult[sen_idx+1].replace('<NP>',''),convert_to_tensor=True)
+                        query_embeddings = embedder.encode(SenResult[sen_idx].replace('<NP>', ''),
+                                                           convert_to_tensor=True)
+                        next_embeddings = embedder.encode(SenResult[sen_idx + 1].replace('<NP>', ''),
+                                                          convert_to_tensor=True)
                         cosine_score = util.pytorch_cos_sim(query_embeddings, next_embeddings)
                         query_combine = 0
                         if cosine_score > thro:
                             total += 1
                             query_combine = 1
-                            resultList.append([sen_idx,sen_idx+1])
-                            if [sen_idx,sen_idx+1] in TotalPRlist:
+                            resultList.append([sen_idx, sen_idx + 1])
+                            if [sen_idx, sen_idx + 1] in TotalPRlist:
                                 totalCorr += 1
-                            if [sen_idx,sen_idx+1] in PRList:
+                            if [sen_idx, sen_idx + 1] in PRList:
                                 correct += 1
                         else:
                             if query_combine == 0:
                                 already_combine = 0
                                 flag = imcompletenessVaild(SenResult[sen_idx], predictor, nlp, stateVerbList)
                                 if flag == 0:
-                                    resultList.append([sen_idx,sen_idx+1])
-                                    if [sen_idx,sen_idx+1] in PRList:
+                                    resultList.append([sen_idx, sen_idx + 1])
+                                    if [sen_idx, sen_idx + 1] in PRList:
                                         correct += 1
                                 for res in resultList:
                                     if sen_idx in res:
@@ -268,6 +334,10 @@ if __name__ == '__main__':
                             resultList.append([sen_idx])
                             if [sen_idx] in TotalPRlist:
                                 totalCorr += 1
-                eval(PRList,TotalPRlist,resultList)
+                eval(PRList, TotalPRlist, resultList)
                 print('====================================')
-    nlp.close()
+        nlp.close()
+
+    print(totalSen)
+    print(totalPara)
+
