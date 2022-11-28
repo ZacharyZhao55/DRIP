@@ -9,6 +9,9 @@ env install:
     pip install --user stanfordcorenlp sentence-transformers==2.2.2 allennlp allennlp-models
 
     pip install torch==1.11.0
+    
+ put the stanford cnornlp model into /model/
+ put the srl model into /model/
 
 
 **run**:
