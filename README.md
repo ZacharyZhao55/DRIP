@@ -13,6 +13,8 @@ env install:
  put the stanford cnornlp model into /model/
  
  put the srl model into /model/
+ 
+ corenlp and srl model download address: https://zenodo.org/record/7353667#.Y38hAHZBxD8
 
 
 **run**:
