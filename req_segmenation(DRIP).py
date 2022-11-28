@@ -230,7 +230,7 @@ if __name__ == '__main__':
                 for sen_idx in range(len(SenResult)-1):
                     if '<NP>' not in SenResult[sen_idx]:
                         # imcompletenessVaild(SenResult[sen_idx], predictor, nlp, stateVerbList)
-                        query_embeddings = embedder.encode(SenResult[sen_idx].replace('<NP>',''), convert_to_tensor=True)
+                        query_embeddings = embedder.encode(SenResult[sen_idx], convert_to_tensor=True)
                         next_embeddings = embedder.encode(SenResult[sen_idx+1].replace('<NP>',''),convert_to_tensor=True)
                         cosine_score = util.pytorch_cos_sim(query_embeddings, next_embeddings)
                         query_combine = 0
@@ -246,10 +246,10 @@ if __name__ == '__main__':
                             if query_combine == 0:
                                 already_combine = 0
                                 flag = imcompletenessVaild(SenResult[sen_idx], predictor, nlp, stateVerbList)
-                                if flag == 0:
-                                    resultList.append([sen_idx,sen_idx+1])
-                                    if [sen_idx,sen_idx+1] in PRList:
-                                        correct += 1
+                                if flag == 0 and '<NP>' not in SenResult[sen_idx-1]:
+                                    resultList.append([sen_idx, sen_idx + 1])
+                                elif flag == 0 and '<NP>' in SenResult[sen_idx-1] and [sen_idx - 1, sen_idx] not in resultList:
+                                    resultList.append([sen_idx - 1, sen_idx])
                                 for res in resultList:
                                     if sen_idx in res:
                                         already_combine = 1
