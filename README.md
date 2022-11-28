@@ -11,6 +11,7 @@ env install:
     pip install torch==1.11.0
     
  put the stanford cnornlp model into /model/
+ 
  put the srl model into /model/
 
 
