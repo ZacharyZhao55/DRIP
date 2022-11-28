@@ -34,8 +34,6 @@ test on paragraph complexity:
         
     python req_segmenation(DRIP)-paragraphComplexity.py
 
-    python req_segmenation(DRIP)-su-paragraphComplexity.py
-
 drip-no-opt:
 
 test on document:
@@ -47,8 +45,6 @@ test on document:
 test on paragraph complexity:
         
     python req_segmenation(DRIP-no-opt)-paragraphComplexity.py
-
-    python req_segmenation(DRIP-no-opt)-su-paragraphComplexity.py
 
 model download link:
     https://zenodo.org/record/7353667#.Y38hAHZBxD8
