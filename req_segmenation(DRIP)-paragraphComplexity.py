@@ -167,7 +167,7 @@ if __name__ == '__main__':
         fileNameList.append(fileName.strip())
     for fileName in fileNameList:
         if str(fileNameList.index(fileName)) not in randomSample:
-            docFilePath = 'Data\\test\\testdata\{}(未条目化)-指代消解.txt'.format(
+            docFilePath = 'Data\\test\\testdata\{}.txt'.format(
                 fileName.strip())
             print(docFilePath)
             docFile = open(docFilePath, mode='r', encoding='utf-8').readlines()
@@ -312,10 +312,10 @@ if __name__ == '__main__':
                             if query_combine == 0:
                                 already_combine = 0
                                 flag = imcompletenessVaild(SenResult[sen_idx], predictor, nlp, stateVerbList)
-                                if flag == 0:
+                                if flag == 0 and '<NP>' not in SenResult[sen_idx-1]:
                                     resultList.append([sen_idx, sen_idx + 1])
-                                    if [sen_idx, sen_idx + 1] in PRList:
-                                        correct += 1
+                                elif flag == 0 and '<NP>' in SenResult[sen_idx-1] and [sen_idx - 1, sen_idx] not in resultList:
+                                    resultList.append([sen_idx - 1, sen_idx])
                                 for res in resultList:
                                     if sen_idx in res:
                                         already_combine = 1

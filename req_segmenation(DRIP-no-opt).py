@@ -64,7 +64,7 @@ if __name__ == '__main__':
         fileNameList.append(fileName.strip())
     for fileName in fileNameList:
         if str(fileNameList.index(fileName)) not in randomSample:
-            docFilePath = 'Data\\test\\testdata\{}(未条目化)-指代消解.txt'.format(
+            docFilePath = 'Data\\test\\testdata\{}.txt'.format(
                 fileName.strip())
             print(docFilePath)
             docFile = open(docFilePath, mode='r', encoding='utf-8').readlines()
