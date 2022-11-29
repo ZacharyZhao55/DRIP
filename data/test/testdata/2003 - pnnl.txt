@@ -1,0 +1,61 @@
+1.The following general requirements pertain equally to the logical partitions of the tool.
+2.Users of the tool shall be classified into two types.
+The first type, general user, shall only be permitted to utilize a limited set of the capabilities of the tool. the capabilities of the tool are listed in Table 2. Typically a general user is only permitted to view the results of diagnostic processing either current or historical.
+The second type, administrator, shall be permitted all the privileges of the general user plus those identified in Table 2. The administrator is permitted all the privileges of the general user in addition to the privileges to configure the system and modify fixed data and diagnostic settings.
+3.The automated diagnostic tool shall input sensed data in real time from data acquisition devices and the HVAC unit under diagnosis as well as from data files containing previously acquired data, though not simultaneously. In addition, the tool shall input fixed data provided by the user.
+Sensed and fixed data used by the tool in performing automated diagnostics shall be stored to permanent storage for post-analysis by the diagnostic process and viewing of the results.
+4.The tool shall input sensed data in real time from data acquisition devices and the HVAC unit under diagnosis.
+The absolute time of input will be associated with each sensed data item for The absolute time of input complete lifecycle, including permanent storage.
+The absolute time of input will be determined at the instant the acquisition of the sensed data is complete.
+5.The tool shall permit sensed data to be input from an electronic file, though not simultaneously with sensed data from external acquisition hardware.
+When inputting sensed data from an electronic file, only one file shall be used containing all necessary sensed data.
+an electronic file shall be an ASCII text file containing only columns delimited by a single tab character or single comma. an electronic file shall begin with a required header. The first column of a required header will list, at a minimum, the entries 'Building Identifier' and 'Input Identifier' in that order. Following columns on the Input Identifier row will list integer input identifiers. Following columns on the Input Identifier row will list corresponding integer building identifiers for the inputs. One or more comment rows may exist above and below these required rows. these required rows are identified by a '#' as the first character of the first column. these required rows are ignored by the tool.
+The first uncommented column in the file after the required headers shall list the absolute time, in ascending order, associated with all entries in subsequent columns of the row.
+Each additional column in the file shall pertain to one and only one sensed parameter.
+Data values in the same row of the file correspond to identical time values.
+All columns in the file shall have the same number of rows. An example input file is presented in Table 3.
+When the tool is processing sensed data from an input file, the tool is considered to be operating in 'batch mode'.
+6.Each sensed data item will be qualified as to its certitude during the acquisition process.
+Sensed data will be considered in doubt if acquisition of the data was not possible (for example, if an error occurs during communication with the acquisition hardware), or the data is outside the range of possible values. Otherwise, the sensor value will be deemed accurately acquired.
+7.The software will deem sensed data in doubt if acquisition of the data is not possible, due to communication failures, for a default number of successive samples.
+The default is dependent on sensor type.
+These default values are specified in Table 4.
+The number of successive samples for a given sensor type shall be modifiable by the administrator.
+Data not successfully acquired will be deemed 'missing data'.
+8.Sensed data used in or supporting diagnostic analyses shall be saved to permanent storage.
+9.The occurrence of missing data shall be indicated in permanent storage by a unique and obvious place holder or indicator, eg, a null value or sequence of characters that cannot be confused with non-missing data.
+10.Sensed data input to the tool shall be stored to permanent storage with a precision of three significant figures.
+11.Sensed data input to the tool shall be validated with respect to the tool expected range of values.
+Sensed data shall be assigned the ranges listed in Table 5 by default.
+12.The administrator shall have the capability to modify the expected range of sensed data against which the data will be validated.
+13.The automated diagnostic tool shall detect and identify certain performance and operational faults in chiller and cooling tower subsystems of HVAC units following specified algorithms.
+In addition, the tool shall be designed to permit expansion of diagnostic analysis to additional subsystems.
+The faults identified and The faults causes and sources, shall be saved to permanent storage for subsequent analysis.
+14.The area on the main, systems, and condition windows sensitive to the users selection device, typically the mouse, shall include the line surrounding the item of interest over the entire width of the window. This includes the diagnostic indicators.
+15.The windows listing diagnostic results shall increase in height as needed to display entries up to a maximum of ten entries.
+Once the window has reached maximum size and there are additional items to display, the window shall deploy a scroll bar to permit the user to scroll through the additional entries. In this event, a summary set of diagnostic indicators shall appear above (below) the top (bottom) entry in the display. This set(s) of indicators shall summarize diagnostic indicators not currently appearing on the list above (below) it.
+An indicator in the summary set shall be active if any similar indicator not appearing above (or below) it is active. The summary set indicators comply with the same specification for activation as other indicators.
+16.The building, subsystems, and condition windows shall display the current time if the diagnostic tool is operating in real time.
+If the diagnostic tool is operating in batch mode, the time displayed will be the time associated with the entry currently being processed in the batched input.
+17.These windows shall be organized in a hierarchy enforcing a navigational order on the user. a hierarchy enforcing a navigational order on the user is depicted in Figure 4.
+As indicated in the figure, the main window is at the top of the hierarchy and is the first window that appears when the tool begins execution.
+the main window is subordinate to the main window and can only be displayed by a user selection on the main window.
+The third window in the hierarchy is the main window and the main window can only be displayed by a user selection on the main window.
+The fourth window in the hierarchy is the condition window and the condition window can only be displayed by a user selection on the main window.
+the condition window is the main window.
+the condition window can only be displayed by a user selection on the condition window or by a user selection on the main window if the condition window is displayed.
+the main window can only be displayed by a user action on the main window.
+18.The main (eg, initial or default) window shall list buildings monitored and summarizing the current diagnostic status of all contained monitored units. A recommended layout for this window is presented in Figure 5. this window shall be titled 'Diagnostician'.
+19.The configuration window shall have a button labeled 'Save' that when clicked will present the user with a window by which to enter a disk file or database name in which to save the modifiable data in the window. Entering a file name shall cause the permanent storage of the modified parameters and Save' that when clicked will present the user with a window by which to enter a disk file or database name in which to save the modifiable data in the window immediate use by the diagnostic operations after confirmatory responses by the user. If the user does not confirm the request to save, the user will not be performed. If the user does not confirm the request to relay the modified parameters to the diagnostic processing immediately, the diagnostic processing will not be performed. In either event, the configuration window will remain displayed.
+20.The configuration window shall have a button labeled 'Close' that will dismiss the configuration window and return the user to the main window. If the user has made changes to data in the configuration window, the tool will request confirmation of the user's desire to dismiss the configuration window. If the user does not confirm the request, the configuration window will not be dismissed.
+21.The configuration window shall have a button labeled 'Recall' that will permit the user to recall a disk file of previously saved parameters from which to populate the configuration window.
+When functioning as a screen saver, the configuration window shall change location on the screen periodically and will continue to be updated by diagnostic results.
+22.The subsystems window shall list subsystems monitored for a specific building and summarizing the current diagnostic status of all monitored subsystems. A recommended layout for this window is presented in Figure 6.
+23.The diagnostic information window shall have a button labeled 'Print' that when clicked will display a window listing items to print including the diagnostic information window, the history window, and both the diagnostic and history windows. The user selects the item of interest and clicks the 'OK' button to print the selection, an image(s) of the item(s) selected.
+24.The diagnostic history window shall display historical diagnostic results for a specific diagnostic. A recommended layout for this window is depicted in Figure9. This figure includes a color map that provides a graphical indication of diagnostic condition.
+25.The color map of the history window shall indicate confirmed faults with the color red, potential faults with the color yellow, normal conditions with the color green, and periods when diagnostic processing was not active with the color gray.
+Diagnostic processing should be assumed inactive between periods of time when no confirmed fault, potential fault, or normal condition has been recorded.
+26.The diagnostic history window shall have a button labeled 'Print' that when clicked will display a window listing items to print including the diagnostic information window, the history window, and both the diagnostic and history windows. The user selects the item of interest and clicks the 'OK' button to print the selection, an image(s) of the item(s) selected.
+27.The subsystems window, condition window, and diagnostic information window shall display a title that indicates its specific location or absolute path in the navigation hierarchy of windows. This title shall be a concatenation of the title of the previous window displayed, not including the diagnostic history window, and the name of the entry selected to obtain the current window. The two parts of This title shall be separated by a dash surrounded by a single space.
+28.The diagnostic indicators on the main window and subsystems window shall summarize all diagnostic conditions associated with each entry in the window. In general, an active 'OK' indicator indicates no positive diagnostic results currently exist within the building or subsystem, as applicable for the window. An active 'Caution' indicator indicates that at least one potential problem currently exists within the building or subsystem, as applicable, and no confirmed problem currently exists. An active 'Not OK' indicator indicates at least one confirmed problem exists regardless of whether cautionary or non-positive results exist.
+Essentially, confirmed problems override potential problem indications which override non-positive results.
