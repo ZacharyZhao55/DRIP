@@ -21,7 +21,7 @@ env install:
 
 
 
-train model(batch=256,epochs=30):
+train model (batch = 256, epochs = 30):
     train_data:'Data/train/bertTrain.tsv.gz','Data/train/bertTest.tsv.gz''
 
     python train_nil_v3_multi_task.py
