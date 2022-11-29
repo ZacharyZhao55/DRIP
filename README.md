@@ -52,6 +52,6 @@ test on paragraph complexity:
         
     python req_segmenation(DRIP-no-opt)-paragraphComplexity.py
 
-model download link:
+model download address:
     https://zenodo.org/record/7353667#.Y38hAHZBxD8
     
