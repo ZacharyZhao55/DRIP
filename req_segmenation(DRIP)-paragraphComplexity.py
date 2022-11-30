@@ -145,7 +145,6 @@ if __name__ == '__main__':
         if str(fileNameList.index(fileName)) not in randomSample:
             docFilePath = 'Data\\test\\testdata-su\{}.txt'.format(
                 fileName.strip())
-            print(docFilePath)
             docFile = open(docFilePath, mode='r', encoding='utf-8').readlines()
 
             temSenList = []
@@ -279,8 +278,6 @@ if __name__ == '__main__':
                 # eval(PRList, TotalPRlist, resultList)
                 # print('====================================')
 
-            # nlp.close()
-                num=500
                 condinates = senResult
                 corpus_embeddings = embedder.encode(condinates)
                 query_embeddings = embedder.encode(condinates)
@@ -314,6 +311,3 @@ if __name__ == '__main__':
                 print("Recall:",correct/len(PRList))
                 print("Precision:",correct/total)
                 print("Accuracy:",totalCorr/len(TotalPRlist))
-
-    print(MaxSeqLen)
-
